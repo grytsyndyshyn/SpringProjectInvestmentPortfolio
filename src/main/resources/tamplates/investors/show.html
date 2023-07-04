@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Show</title>
+</head>
+<body>
+<p th:text="${investor.getLastName() + ', ' + person.getFirstName()}">VALUE</p>
+
+<div th:if="${investors.isEmpty()}">
+    <p>У портфелі інвестора відсутні цінні папери</p>
+    <hr/>
+</div>
+
+<div th:if="${!investors.isEmpty()}">
+    <hr/>
+    <b>Цінні папери:</b>
+    <br/>
+    <table th:each="security : ${securities}">
+        <tr>
+            <td>
+                <span th:text="${securities.getKind() + ', ' + securities.getIssuer() + ', ' + securities.getNumber() + ', ' + securities.getTotal_value()}"
+                      th:style="${book.isExpired()} ? 'color: red' : 'color: black'">
+                    securities
+                </span>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+</div>
+
+<form th:method="GET" th:action="@{/investors/{id}/edit(id=${investor.getId()})}">
+    <input type="submit" value="Редагувати"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/pinvestors/{id}(id=${investor.getId()})}">
+    <input type="submit" value="Видалити"/>
+</form>
+</body>
+</html>

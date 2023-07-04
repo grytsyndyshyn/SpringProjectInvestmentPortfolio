@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редагувати інвестора</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/investors/{id}(id=${investor.getId()})}" th:object="${investor}">
+    <label for="lastName">Введіть Прізвище: </label>
+    <input type="text" th:field="*{investor.lastName}" id="lastName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{investor.lastName}">Last Name Error</div>
+    <br/>
+    <label for="firstName">Введіть Ім'я: </label>
+    <input type="text" th:field="*{investor.firstName}" id="firstName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{investor.firstName}">First Name Error</div>
+    <br/>
+</form>
+</body>
+</html>
+

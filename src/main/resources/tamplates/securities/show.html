@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Show</title>
+</head>
+<body>
+<p th:text="${securities.getKind() + ', ' + securities.getIssuer() + ', ' + securities.getNumber() + ', ' + securities.getTotal_value()}">VALUE</p>
+
+<div th:if="${owner}">
+    <span>Власником цінного паперу є: </span> <span th:text="${owner.getLastName()}">Investor Name</span>
+
+    <form th:method="PATCH" th:action="@{/securities/{id}/release(id=${securities.getId()})}">
+        <input type="submit" value="Звільнити"/>
+    </form>
+</div>
+
+<div th:if="${investor}">
+    <span>Вкажіть, будь ласка, для кого з інвесторів придбаний цінний папір</span>
+    <form th:method="PATCH" th:action="@{/securities/{id}/assign(id=${securities.getId()})}">
+        <label for="investor">Виберіть інвестора </label>
+        <select th:object="${investor}" th:field="*{id}" id="investor">
+            <option th:each="investor : ${investors}" th:value="${investor.getId()}" th:text="${investor.getLastName()}">
+            </option>
+        </select>
+        <input type="submit" value="Визначити власника цінного паперу"/>
+    </form>
+</div>
+
+<hr/>
+
+<form th:method="GET" th:action="@{/securities/{id}/edit(id=${securities.getId()})}">
+    <input type="submit" value="Редагувати"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/securities/{id}(id=${securities.getId()})}">
+    <input type="submit" value="Видалити"/>
+</form>
+</body>
+</html>

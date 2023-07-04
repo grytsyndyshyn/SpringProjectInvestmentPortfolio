@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New securities</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/securities}" th:object="${securities}">
+    <label for="kind">Вид цінного паперу: </label>
+    <input type="text" th:field="*{kind}" id="kind"/>
+    <div style="color:red" th:if="${#fields.hasErrors('kind')}" th:errors="*{kind}">Kind Error</div>
+    <br/>
+    <label for="issuer">Емітент: </label>
+    <input type="text" th:field="*{issuer}" id="issuer"/>
+    <div style="color:red" th:if="${#fields.hasErrors('issuer')}" th:errors="*{issuer}">Issuer Error</div>
+    <br/>
+    <label for="number">Рік: </label>
+    <input type="text" th:field="*{number}" id="number"/>
+    <div style="color:red" th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Number Error</div>
+    <br/>
+    <label for="total_value">загальна вартість: </label>
+    <input type="text" th:field="*{total_value}" id="total_value"/>
+    <div style="color:red" th:if="${#fields.hasErrors('total_value')}" th:errors="*{total_value}">Total_value Error</div>
+    <br/>
+    <input type="submit" value="Створити!"/>
+</form>
+</body>
+</html>
